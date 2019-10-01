@@ -1,5 +1,9 @@
+import * as os from 'os'
+
 function Home() {
-    return <div>Welcome to Next.js!!</div>
+    const name = os.hostname()
+
+    return <div>Welcome to Next.js!! { name }!</div>
 }
 
 export default Home
