@@ -1,0 +1,46 @@
+{
+  "name": "tireinformation",
+  "version": "0.0.1",
+  "description": "A tire information app",
+  "main": "index.js",
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "export": "next export",
+    "start": "next start",
+    "test": "jest"
+  },
+  "keywords": [
+    "Next.js",
+    "Jest",
+    "Tire",
+    "Information"
+  ],
+  "author": "4252 Concepts LLC",
+  "license": "ISC",
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!babel.config.js",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ]
+  },
+  "dependencies": {
+    "next": "^9.0.7",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.6.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-jest": "^24.9.0",
+    "jest": "^24.9.0",
+    "react-test-renderer": "^16.10.1",
+    "ts-jest": "^24.1.0"
+  }
+}
