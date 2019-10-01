@@ -1,9 +1,13 @@
+import React from 'react'
 import * as os from 'os'
 
-function Home() {
-    const name = os.hostname()
+export default class Index extends React.Component {
 
-    return <div>Welcome to Next.js!! { name }!</div>
+    static getInitialProps () {
+        return { hostname: os.hostname() }
+    }
+
+    render() {
+        return <div>Welcome to Next.js!! { this.props.hostname }!</div>
+    }
 }
-
-export default Home
