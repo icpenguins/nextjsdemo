@@ -1,0 +1,6 @@
+.nyc_output/
+.next/
+.vscode/
+tests/
+coverage/
+node_modules/
