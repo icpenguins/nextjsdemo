@@ -1,6 +1,6 @@
 'using strict'
 
-const m = require('../utils/math')
+import * as m from '../utils/math'
 
 it('Math Prototypes: ceil10: should return 7 when the ceil10 of 0 for 19 divided by 3', () => {
     expect(Math.ceil10(19 / 3, 0)).toBe(7)
