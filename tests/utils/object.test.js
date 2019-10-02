@@ -1,7 +1,6 @@
 'using strict'
 
 import * as objUtil from '../../utils/object'
-import { AssertionError } from 'assert'
 
 describe('utils:object - test the creation of a mutable object', () =>{
     it('should create a property on an object', () => {
