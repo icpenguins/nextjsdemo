@@ -1,14 +1,9 @@
 import React from 'react'
-import * as os from 'os'
-
-import HostName from '../model/hostname';
+import TirePressure from '../component/tire/TirePressure'
 
 export default class Index extends React.Component {
-    static async getInitialProps () {
-        return { hostname: os.hostname() }
-    }
 
     render() {
-        return <div>Welcome to Next.js!!<HostName {...this.props}/></div>
+        return <TirePressure />
     }
 }

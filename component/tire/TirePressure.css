@@ -1,0 +1,30 @@
+.tirePressureTable {
+    display: table;
+    width: 100%;
+}
+
+.tirePressureRow {
+    display: table-row;
+}
+
+.tirePressureCell, .tirePressureHead {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+}
+
+.tirePressureHeading {
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
+}
+
+.tirePressureFoot {
+    background-color: #EEE;
+    display: table-footer-group;
+    font-weight: bold;
+}
+
+.tirePressureBody {
+    display: table-row-group;
+}
