@@ -1,19 +1,23 @@
 'using strict'
 
 import React from 'react'
+import fetch from 'isomorphic-unfetch';
 import './TirePressure.css'
 
 export default class TirePressure extends React.Component {
     constructor() {
         super()
+
         this.state = {
+            max_psi: null,
+            max_load: null,
             loadToPsi: null,
             pressureTable: []
         }
     }
 
-    componentDidMount() {
-        fetch('/api/tire/pressure?max_load=3860&max_psi=65')
+    getData(tireInfo) {
+        fetch(`/api/tire/pressure?max_load=${tireInfo.max_load}&max_psi=${tireInfo.max_psi}`)
             .then(results => {
                 return results.json()
             })
@@ -41,21 +45,32 @@ export default class TirePressure extends React.Component {
     }
 
     render() {
-        return (
-        <div id="tirePressure">
-            <div>{this.state.loadToPsi}</div>
-            <div class="tirePressureTable">
-            <div class="tirePressureHeading">
-                <div class="tirePressureRow">
-                    <div class="tirePressureHead">Tire pressure (PSI)</div>
-                    <div class="tirePressureHead">Tire Load Weight (pounds)</div>
+        let result = null
+
+        if (this.props.tireInfo.get_data) {
+            this.props.tireInfo.get_data = false
+            this.getData(this.props.tireInfo)
+        }
+
+        if (this.state.loadToPsi !== null) {
+            result = (
+            <div id="tirePressure">
+                <div>{this.state.loadToPsi}</div>
+                <div class="tirePressureTable">
+                <div class="tirePressureHeading">
+                    <div class="tirePressureRow">
+                        <div class="tirePressureHead">Tire pressure (PSI)</div>
+                        <div class="tirePressureHead">Tire Load Weight (pounds)</div>
+                    </div>
+                </div>
+                <div class="tirePressureBody">
+                    {this.state.pressureTable}
+                </div>
                 </div>
             </div>
-            <div class="tirePressureBody">
-                {this.state.pressureTable}
-            </div>
-            </div>
-        </div>
-        )
+            )
+        }
+
+        return result
     }
 }
