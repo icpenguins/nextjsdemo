@@ -58,13 +58,13 @@ describe('model:TireInformation - test the TireInformation model class', () =>{
         let obj = new TireInformation(3860, 10)
 
         const expectList = [
-            { 4: 1544 },
-            { 5: 1930 },
-            { 6: 2316 },
-            { 7: 2702 },
-            { 8: 3088 },
-            { 9: 3474 },
-            { 10: 3860 }
+            { psi: 4, load: 1544 },
+            { psi: 5, load: 1930 },
+            { psi: 6, load: 2316 },
+            { psi: 7, load: 2702 },
+            { psi: 8, load: 3088 },
+            { psi: 9, load: 3474 },
+            { psi: 10, load: 3860 }
         ]
 
         expect(obj.getLoadToPsiList()).toEqual(expectList)
@@ -77,13 +77,13 @@ describe('model:TireInformation - test the TireInformation model class', () =>{
         obj.getLoadToPsi()
 
         const expectList = [
-            { 4: 1544 },
-            { 5: 1930 },
-            { 6: 2316 },
-            { 7: 2702 },
-            { 8: 3088 },
-            { 9: 3474 },
-            { 10: 3860 }
+            { psi: 4, load: 1544 },
+            { psi: 5, load: 1930 },
+            { psi: 6, load: 2316 },
+            { psi: 7, load: 2702 },
+            { psi: 8, load: 3088 },
+            { psi: 9, load: 3474 },
+            { psi: 10, load: 3860 }
         ]
 
         expect(obj.getLoadToPsiList()).toEqual(expectList)

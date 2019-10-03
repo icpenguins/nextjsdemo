@@ -63,7 +63,12 @@ export default class TireInformation {
 
         // Start at a tire inflation of 4 PSI because beadlocks don't go down any further
         for (let i = 4; i <= this.max_psi; i++) {
-            this.loadToPsiList.push(objUtil.createMutableObject({ }, i, Math.round10(i * this.loadToPsi, 0)))
+            let obj = { }
+
+            objUtil.createMutableObject(obj, 'psi', i)
+            objUtil.createMutableObject(obj, 'load', Math.round10(i * this.loadToPsi, 0))
+
+            this.loadToPsiList.push(obj)
         }
 
         return this.loadToPsiList
