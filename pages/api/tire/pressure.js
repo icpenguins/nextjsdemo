@@ -9,22 +9,17 @@ export default async (req, res) => {
         status: ''
     }
 
-    if (req.query['max_load'] !== undefined && req.query['max_psi'] !== undefined) {
+    try {
         let ti = new TireInformation(req.query['max_load'], req.query['max_psi'])
 
-        try {
-            result.body = {
-                loadToPsi: ti.getLoadToPsi(),
-                loadToPsiList: ti.getLoadToPsiList()
-            }
-
-            result.status = 'ok'
-        } catch (e) {
-            result.message = e.message
-            result.status = 'err'
+        result.body = {
+            loadToPsi: ti.getLoadToPsi(),
+            loadToPsiList: ti.getLoadToPsiList()
         }
-    } else {
-        result.message = 'A max_load and max_psi value must be specified.'
+
+        result.status = 'ok'
+    } catch (e) {
+        result.message = e.message
         result.status = 'err'
     }
 
