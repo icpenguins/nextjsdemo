@@ -55,7 +55,7 @@ export default class Index extends React.Component {
                     </label>
                     <button onClick={this.handleClick}>Get Load</button>
                 </form>
-                <TirePressure tireInfo={this.state}/>
+                <TirePressure info={this.state}/>
             </div>
         )
     }

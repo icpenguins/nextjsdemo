@@ -16,8 +16,8 @@ export default class TirePressure extends React.Component {
         }
     }
 
-    getData(tireInfo) {
-        fetch(`/api/tire/pressure?max_load=${tireInfo.max_load}&max_psi=${tireInfo.max_psi}`)
+    getData(info) {
+        fetch(`/api/tire/pressure?max_load=${info.max_load}&max_psi=${info.max_psi}`)
             .then(results => {
                 return results.json()
             })
@@ -47,9 +47,9 @@ export default class TirePressure extends React.Component {
     render() {
         let result = null
 
-        if (this.props.tireInfo.get_data) {
-            this.props.tireInfo.get_data = false
-            this.getData(this.props.tireInfo)
+        if (this.props.info.get_data) {
+            this.props.info.get_data = false
+            this.getData(this.props.info)
         }
 
         if (this.state.loadToPsi !== null) {
