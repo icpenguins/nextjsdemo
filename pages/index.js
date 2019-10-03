@@ -1,5 +1,5 @@
 import React from 'react'
-import TirePressure from '../component/tire/TirePressure'
+import TirePressure from '../component/tire/TirePressureData'
 import { createMutableObject } from '../utils/object'
 
 export default class Index extends React.Component {
