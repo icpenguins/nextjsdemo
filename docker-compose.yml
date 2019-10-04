@@ -1,21 +1,7 @@
 version: '3'
 services:
-  api:
-    image: tire-information-app
+  web:
+    image: nextjsdemo
     build: .
-    networks:
-      - backend
     ports:
       - "3000:3000"
-    volumes:
-      - ./:/usr/src/app
-
-  web-cli:
-    image: tire-information-app
-    networks:
-      - backend
-    command: sh
-
-networks:
-  backend:
-    driver: bridge
