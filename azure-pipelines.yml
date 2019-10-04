@@ -2,12 +2,20 @@
 # Build a Node.js project that uses React.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
 
 trigger:
 - master
 
 pool:
   vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: 'nextjsdemo'
+  imageTag: '$(build.buildId)'
+  containerRegistry: '4252pipe.azurecr.io'
+  serviceConnection: '4252pipe'
 
 steps:
 - task: NodeTool@0
@@ -50,3 +58,14 @@ steps:
     targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
+
+- task: Docker@2
+  displayName: Build and Push the Docker image
+  inputs:
+    containerRegistry: $(containerRegistry)
+    repository: $(imageName)
+    command: "buildAndPush"
+    Dockerfile: ./Dockerfile
+    tags: |
+      latest
+      $(imageTag)
