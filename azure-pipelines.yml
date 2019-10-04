@@ -35,10 +35,18 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: |
-      **\*.js
+    contents: |
+      component\**\*.js
+      component\**\*.css
+      model\**\*.js
+      pages\**\*.js
+      pages\**\*.css
+      utils\**\*.js
+      babel.config.js
+      Dockerfile
+      next.config.js
       package.json
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      readme.md
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
