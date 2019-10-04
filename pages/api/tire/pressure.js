@@ -3,6 +3,7 @@
 import TireInformation from '../../../model/TireInformation'
 
 export default async (req, res) => {
+    let returnCode = 200
     let result = {
         body: {},
         message: {},
@@ -21,7 +22,8 @@ export default async (req, res) => {
     } catch (e) {
         result.message = e.message
         result.status = 'err'
+        returnCode = 400
     }
 
-    res.status(200).json(result)
+    res.status(returnCode).json(result)
 }

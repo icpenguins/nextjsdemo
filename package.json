@@ -24,6 +24,7 @@
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!babel.config.js",
+      "!next.config.js",
       "!**/coverage/**",
       "!**/node_modules/**",
       "!**/vendor/**"
@@ -32,6 +33,7 @@
       "lcov",
       "cobertura"
     ],
+    "reporters": [ "default", "jest-junit" ],
     "setupFilesAfterEnv": [
       "jest-enzyme"
     ],
@@ -39,6 +41,15 @@
     "testEnvironmentOptions": {
       "enzymeAdapter": "react16"
     }
+  },
+  "jest-junit": {
+    "suiteName": "NextJS Demo Tests",
+    "outputDirectory": "./artifacts",
+    "outputName": "junit.xml",
+    "classNameTemplate": "{classname}-{title}",
+    "titleTemplate": "{classname}-{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
   },
   "dependencies": {
     "@babel/runtime": "^7.6.2",
@@ -60,6 +71,7 @@
     "jest": "^24.9.0",
     "jest-environment-enzyme": "^7.1.1",
     "jest-enzyme": "^7.1.1",
+    "jest-junit": "^8.0.0",
     "react-test-renderer": "^16.10.1",
     "ts-jest": "^24.1.0"
   }
