@@ -24,6 +24,7 @@
     "collectCoverageFrom": [
       "**/*.{js,jsx}",
       "!babel.config.js",
+      "!next.config.js",
       "!**/coverage/**",
       "!**/node_modules/**",
       "!**/vendor/**"
