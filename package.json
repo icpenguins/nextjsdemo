@@ -28,6 +28,10 @@
       "!**/node_modules/**",
       "!**/vendor/**"
     ],
+    "coverageReporters": [
+      "lcov",
+      "cobertura"
+    ],
     "setupFilesAfterEnv": [
       "jest-enzyme"
     ],
