@@ -4,6 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema
 # https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/docker?view=azure-devops
 
 trigger:
 - master
@@ -62,11 +63,10 @@ steps:
 - task: Docker@2
   displayName: Build and Push the Docker image
   inputs:
-    azureContainerRegistry: $(containerRegistry)
-    azureSubscriptionEndpoint: $(serviceConnection)
+    containerRegistry: $(containerRegistry)
     repository: $(imageName)
-    command: "buildAndPush"
-    Dockerfile: ./Dockerfile
+    command: buildAndPush
+    dockerfile: ./Dockerfile
     tags: |
       latest
       $(imageTag)
