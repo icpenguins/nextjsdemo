@@ -2,12 +2,22 @@
 # Build a Node.js project that uses React.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/build/docker?view=azure-devops
 
 trigger:
 - master
 
 pool:
   vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: 'nextjsdemo'
+  imageTag: '$(build.buildId)'
+  fullImageName: '$(imageName):$(imageTag)'
+  containerRegistry: '4252pipe.azurecr.io'
+  serviceConnection: '4252pipe'
 
 steps:
 - task: NodeTool@0
@@ -31,14 +41,46 @@ steps:
   inputs: 
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)'
-    Contents: |
-      **\*.js
+    contents: |
+      component\**\*.js
+      component\**\*.css
+      model\**\*.js
+      pages\**\*.js
+      pages\**\*.css
+      utils\**\*.js
+      babel.config.js
+      Dockerfile
+      next.config.js
       package.json
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      readme.md
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
 
 - task: PublishBuildArtifacts@1
+
+- task: Docker@1
+  displayName: 'Containerize the application'
+  inputs:
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    dockerFile: '**/Dockerfile'
+    imageName: '$(fullImageName)'
+    includeLatestTag: true
+ 
+- task: Docker@1
+  displayName: 'Push image'
+  inputs:
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    command: 'Push an image'
+    imageName: '$(fullImageName)'
+ 
+- task: Docker@1
+  displayName: 'Push latest image'
+  inputs:
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    command: 'Push an image'
+    imageName: '$(imageName):latest'
