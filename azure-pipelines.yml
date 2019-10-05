@@ -64,7 +64,7 @@ steps:
   inputs:
     command: buildAndPush
     registryServiceConn: '4252pipe'
-    containerRegistry: $(azureContainerRegistry)
+    repository: $(azureContainerRegistry)
     tags: |
       latest
       $(imageTag)
