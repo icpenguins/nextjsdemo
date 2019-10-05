@@ -63,7 +63,7 @@ steps:
   displayName: ACR - Build and Push Container
   inputs:
     command: buildAndPush
-    containerRegistry: '4252pipe'
+    registryServiceConn: '4252pipe'
     repository: dev
     tags: |
       latest
