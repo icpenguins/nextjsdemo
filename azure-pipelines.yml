@@ -14,7 +14,6 @@ pool:
 
 variables:
   imageName: 'nextjsdemo'
-  imageName: 'nextjsdemo'
   imageTag: '$(build.buildId)'
   fullImageName: '$(imageName):$(imageTag)'
   containerRegistry: '4252pipe.azurecr.io'
