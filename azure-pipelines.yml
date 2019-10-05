@@ -14,8 +14,11 @@ pool:
 
 variables:
   imageName: 'nextjsdemo'
+  imageName: 'nextjsdemo'
   imageTag: '$(build.buildId)'
-  azureContainerRegistry: 4252pipe.azurecr.io
+  fullImageName: '$(imageName):$(imageTag)'
+  containerRegistry: '4252pipe.azurecr.io'
+  serviceConnection: '4252pipe'
 
 steps:
 - task: NodeTool@0
@@ -59,17 +62,27 @@ steps:
 
 - task: PublishBuildArtifacts@1
 
-- task: Docker@2
-  displayName: ACR - Build and Push Container
+- task: Docker@1
+  displayName: 'Containerize the application'
   inputs:
-    command: login
-    containerRegistry: '4252pipe'
-
-- task: Docker@2
-  displayName: ACR - Build and Push Container
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    dockerFile: '/Dockerfile'
+    imageName: '$(fullImageName)'
+    includeLatestTag: true
+ 
+- task: Docker@1
+  displayName: 'Push image'
   inputs:
-    command: buildAndPush
-    repository: $(azureContainerRegistry)
-    tags: |
-      latest
-      $(imageTag)
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    command: 'Push an image'
+    imageName: '$(fullImageName)'
+ 
+- task: Docker@1
+  displayName: 'Push latest image'
+  inputs:
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    command: 'Push an image'
+    imageName: '$(imageName):latest'
