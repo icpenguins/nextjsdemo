@@ -63,7 +63,7 @@ steps:
   displayName: ACR - Login
   inputs:
     command: login
-    containerRegistry: 4252pipe
+    azureContainerRegistry: 4252pipe
 
 - task: Docker@2
   displayName: ACR - Build and Push Container
