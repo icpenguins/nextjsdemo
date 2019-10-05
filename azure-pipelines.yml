@@ -15,8 +15,7 @@ pool:
 variables:
   imageName: 'nextjsdemo'
   imageTag: '$(build.buildId)'
-  azureContainerRegistry: 4252pipe
-  azureSubscriptionEndpoint: 4252pipe
+  azureContainerRegistry: 4252pipe.azurecr.io
 
 steps:
 - task: NodeTool@0
@@ -60,30 +59,17 @@ steps:
 
 - task: PublishBuildArtifacts@1
 
-- task: DockerCompose@0
-  displayName: Container Registry Login
+- task: Docker@2
+  displayName: ACR - Login
   inputs:
-    containerregistrytype: Azure Container Registry
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    command: login
+    containerRegistry: $(azureContainerRegistry)
 
-- task: DockerCompose@0
-  displayName: Build the Docker image
+- task: Docker@2
+  displayName: ACR - Build and Push Container
   inputs:
-    action: Build services
-    containerregistrytype: Azure Container Registry
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    azureContainerRegistry: $(azureContainerRegistry)
-    additionalImageTags: $(Build.BuildId)
-    dockerComposeFile: docker-compose.yml
-    projectName: $(Build.Repository.Name)
-
-- task: DockerCompose@0
-  displayName: Push the Docker image
-  inputs:
-    action: Push services
-    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
-    azureContainerRegistry: $(azureContainerRegistry)
-    dockerComposeFile: docker-compose.yml
-    projectName: $(Build.Repository.Name)
-    qualifyImageNames: true
-    additionalImageTags: $(Build.BuildId)
+    command: buildAndPush
+    repository: dev
+    tags: |
+      latest
+      $(imageTag)
