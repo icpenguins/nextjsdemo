@@ -64,15 +64,15 @@ export default class Index extends React.Component {
         let objState = {}
 
         if (setState === undefined || setState.hasOwnProperty('max_load')) {
-            createMutableObject(objState, 'max_load', setState === undefined ? null : setState.max_load)
+            createMutableObject(objState, 'max_load', setState === undefined ? "" : setState.max_load)
         } else {
-            createMutableObject(objState, 'max_load', this.state.max_load === undefined ? null : this.state.max_load)
+            createMutableObject(objState, 'max_load', this.state.max_load === undefined ? "" : this.state.max_load)
         }
 
         if (setState === undefined || setState.hasOwnProperty('max_psi')) {
-            createMutableObject(objState, 'max_psi', setState === undefined ? null : setState.max_psi)
+            createMutableObject(objState, 'max_psi', setState === undefined ? "" : setState.max_psi)
         } else {
-            createMutableObject(objState, 'max_psi', this.state.max_psi === undefined ? null : this.state.max_psi)
+            createMutableObject(objState, 'max_psi', this.state.max_psi === undefined ? "" : this.state.max_psi)
         }
 
         if (!setState === undefined && setState.hasOwnProperty('vehicle_weight')) {
