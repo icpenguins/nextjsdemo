@@ -13,7 +13,8 @@ export default class TireInformation {
      * @param { Number } max_load the listed maximum load (pounds) of the tire.
      * @param { Number } max_psi the listed maximum cold tire pressure (PSI) of the tire.
      * @param { Number } vehicle_weight (optional) the total, loaded, weight of the vehicle.
-     * @param { Number } front_to_rear_ratio (optional) the percentage of weight to the front of the vehicle compared to the rear. The default is 60% (0.6) front and 40% (0.4) rear. A mono-tire vehicle is possible.
+     * @param { Number } front_to_rear_ratio (optional) the percentage of weight to the front of the vehicle compared to the rear.
+     *                                       The default is 60% (0.6) front and 40% (0.4) rear. A mono-tire vehicle is possible.
      * @param { Number } tire_count (optional) the total count of road contact tires for the vehicle. The default is 4.
      */
     constructor(max_load, max_psi, vehicle_weight, front_to_rear_ratio = 0.6, tire_count = 4) {
