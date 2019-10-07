@@ -1,12 +1,13 @@
 import React from 'react'
-import TirePressureForm from '../component/tire/TirePressureForm'
+import Navigation from '../component/navigation'
 
 export default class Index extends React.Component {
     render() {
         return (
-            <div>
-                <TirePressureForm />
-            </div>
+            <>
+            <Navigation />
+            <h1>A Next.js demo site.</h1>
+          </>
         )
     }
 }

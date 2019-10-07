@@ -1,0 +1,31 @@
+#nav_links {
+    background-color: #90bade;
+    color: #333;
+    font-family: Tahoma;
+    font-size: .8em;
+    padding: 1em;
+    margin-bottom: 20px;
+}
+
+#nav_links li {
+    border-bottom     : 1px solid #90bade;
+    list-style-type   : none;
+    display           : inline-block;
+}
+
+#nav_links li a {
+    background-color  : #2175bc;
+    color             : #fff;
+    border-left       : 10px solid #1958b7;
+    border-right      : 10px solid #508fc4;
+    font-weight       : bold;
+    padding           : .5em;
+    text-decoration   : none;
+}
+
+#nav_links li a:hover {
+    background-color  : #2586d7;
+    color             : #fff;
+    border-left       : 10px solid #1c64d1;
+    border-right      : 10px solid #5ba3e0;
+}
