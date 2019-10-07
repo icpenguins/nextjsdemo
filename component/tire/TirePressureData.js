@@ -46,10 +46,10 @@ export default class TirePressure extends React.Component {
 
                 let pressureTable = data.body.loadToPsiList.map((item) => {
                     return (
-                    <div class="tirePressureRow">
-                        <div class="tirePressureCell">{item.psi}</div>
-                        <div class="tirePressureCell">{item.load}</div>
-                    </div>
+                        <div class="tirePressureRow" key={item.psi}>
+                            <div class="tirePressureCell">{item.psi}</div>
+                            <div class="tirePressureCell">{item.load}</div>
+                        </div>
                     )})
 
                 this.clearOnError()
