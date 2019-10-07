@@ -10,8 +10,6 @@ export default class Index extends React.Component {
 
         this.handleClick = this.handleClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
-
-        this.tirePressureHandler = this.tirePressureHandler.bind(this)
     }
 
     handleChange(event) {
@@ -28,16 +26,6 @@ export default class Index extends React.Component {
 
         this.setState(createMutableObject({}, 'get_data', true))
         event.preventDefault();
-    }
-
-    tirePressureHandler(dataFromChild) {
-        // log our state before and after we updated it
-        console.log('%cPrevious Parent State: ' + JSON.stringify(this.state), "color:orange");
-
-        alert(`max_load: ${this.state.max_load}, max_psi: ${this.state.max_psi}`);
-        this.setState({
-            data: dataFromChild
-        },() => console.log('Updated Parent State:', this.state));
     }
 
     render() {
