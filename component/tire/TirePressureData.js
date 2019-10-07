@@ -9,19 +9,39 @@ export default class TirePressure extends React.Component {
         super()
 
         this.state = {
-            max_psi: null,
-            max_load: null,
-            loadToPsi: null,
-            pressureTable: []
+            onData: {
+                hasData: false,
+                loadToPsi: null,
+                pressureTable: []
+            },
+            onError: null
         }
+    }
+
+    clearOnData() {
+        this.setState({
+            onData: {
+                hasData: false,
+                loadToPsi: null,
+                pressureTable: []
+            }
+        })
+    }
+
+    clearOnError() {
+        this.setState({ onError: null })
     }
 
     getData(info) {
         fetch(`/api/tire/pressure?max_load=${info.max_load}&max_psi=${info.max_psi}`)
-            .then(results => {
-                return results.json()
+            .then(res => {
+                return res.json()
             })
             .then(data => {
+                if (data.status === 'err') {
+                    throw Error(`The request returned an error. ${data.message}`)
+                }
+
                 this.state.loadToPsi = data.body.loadToPsi
 
                 let pressureTable = data.body.loadToPsiList.map((item) => {
@@ -32,14 +52,23 @@ export default class TirePressure extends React.Component {
                     </div>
                     )})
 
+                this.clearOnError()
+
                 this.setState({
-                    loadToPsi: data.body.loadToPsi,
-                    pressureTable: pressureTable
+                    onData: {
+                        hasData: true,
+                        loadToPsi: data.body.loadToPsi,
+                        pressureTable: pressureTable
+                    }
                 })
             })
             .catch(e => {
+                // Clear all state data
+                this.clearOnData()
+
+                // Send the error
                 this.setState({
-                    pressureTable: [<div>Error: {e.message}</div>]
+                    onError: <div>{e.message}</div>
                 })
             })
     }
@@ -52,23 +81,25 @@ export default class TirePressure extends React.Component {
             this.getData(this.props.info)
         }
 
-        if (this.state.loadToPsi !== null) {
+        if (this.state.onData.hasData) {
             result = (
-            <div id="tirePressure">
-                <div>{this.state.loadToPsi}</div>
-                <div class="tirePressureTable">
-                <div class="tirePressureHeading">
-                    <div class="tirePressureRow">
-                        <div class="tirePressureHead">Tire pressure (PSI)</div>
-                        <div class="tirePressureHead">Tire Load Weight (pounds)</div>
+                <div id="tirePressureData">
+                    <div class="tirePressureLoad">Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
+                    <div class="tirePressureTable">
+                    <div class="tirePressureHeading">
+                        <div class="tirePressureRow">
+                            <div class="tirePressureHead">Tire pressure (PSI)</div>
+                            <div class="tirePressureHead">Tire Load Weight (pounds)</div>
+                        </div>
+                    </div>
+                    <div class="tirePressureBody">
+                        {this.state.onData.pressureTable}
+                    </div>
                     </div>
                 </div>
-                <div class="tirePressureBody">
-                    {this.state.pressureTable}
-                </div>
-                </div>
-            </div>
             )
+        } else if (this.state.onError !== null) {
+            result = this.state.onError
         }
 
         return result
