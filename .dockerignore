@@ -3,5 +3,6 @@
 .vscode/
 artifacts/
 coverage/
+deploy/
 node_modules/
 tests/
