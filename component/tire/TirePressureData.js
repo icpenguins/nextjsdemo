@@ -46,10 +46,10 @@ export default class TirePressure extends React.Component {
 
                 let pressureTable = data.body.loadToPsiList.map((item) => {
                     return (
-                    <div class="tirePressureRow">
-                        <div class="tirePressureCell">{item.psi}</div>
-                        <div class="tirePressureCell">{item.load}</div>
-                    </div>
+                        <div className="tirePressureRow" key={item.psi}>
+                            <div className="tirePressureCell">{item.psi}</div>
+                            <div className="tirePressureCell">{item.load}</div>
+                        </div>
                     )})
 
                 this.clearOnError()
@@ -84,15 +84,15 @@ export default class TirePressure extends React.Component {
         if (this.state.onData.hasData) {
             result = (
                 <div id="tirePressureData">
-                    <div class="tirePressureLoad">Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
-                    <div class="tirePressureTable">
-                    <div class="tirePressureHeading">
-                        <div class="tirePressureRow">
-                            <div class="tirePressureHead">Tire pressure (PSI)</div>
-                            <div class="tirePressureHead">Tire Load Weight (pounds)</div>
+                    <div className="tirePressureLoad">Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
+                    <div className="tirePressureTable">
+                    <div className="tirePressureHeading">
+                        <div className="tirePressureRow">
+                            <div className="tirePressureHead">Tire pressure (PSI)</div>
+                            <div className="tirePressureHead">Tire Load Weight (pounds)</div>
                         </div>
                     </div>
-                    <div class="tirePressureBody">
+                    <div className="tirePressureBody">
                         {this.state.onData.pressureTable}
                     </div>
                     </div>

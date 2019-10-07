@@ -98,7 +98,7 @@ az keyvault secret set \
 
 ### Create an Azure template parameters files
 
-In the below code, substitute the value used for `ACR_NAME` in the above script and determine the Azure geo location of the resource group that will be used. Typically, this would be something like `westus2`.
+In the below code, substitute the values used for `ACR_NAME` and `AKV_NAME` in the above script, the subscriptionId, group name, and determine the Azure geo location of the resource group that will be used. Typically, this would be something like `westus2`.
 
 ```json
 {
@@ -120,7 +120,7 @@ In the below code, substitute the value used for `ACR_NAME` in the above script 
         "userName": {
             "reference": {
                 "keyVault": {
-                    "id": "/subscriptions/6d84eca9-2455-48dc-b714-3a53781cfd70/resourceGroups/SHARED/providers/Microsoft.KeyVault/vaults/vault4252"
+                    "id": "/subscriptions/[subscriptionId]/resourceGroups/[name]/providers/Microsoft.KeyVault/vaults/[AKV_NAME]"
                 },
                 "secretName": "ACR_NAME-pull-usr"
             }
@@ -128,7 +128,7 @@ In the below code, substitute the value used for `ACR_NAME` in the above script 
         "userPassword": {
             "reference": {
                 "keyVault": {
-                    "id": "/subscriptions/6d84eca9-2455-48dc-b714-3a53781cfd70/resourceGroups/SHARED/providers/Microsoft.KeyVault/vaults/vault4252"
+                    "id": "/subscriptions/[subscriptionId]/resourceGroups/[name]/providers/Microsoft.KeyVault/vaults/[AKV_NAME]"
                 },
                 "secretName": "ACR_NAME-pull-pwd"
             }
@@ -140,5 +140,8 @@ In the below code, substitute the value used for `ACR_NAME` in the above script 
 ### Use the Azure containerTemplate to create an Azure Container Instances group
 
 ```bash
-az group deployment create -g $RES_GROUP --template-file deploy/azure/containerTemplate.json --parameters parameters.json
+az group deployment create \
+    -g $RES_GROUP \
+    --template-file deploy/azure/containerTemplate.json \
+    --parameters parameters.json
 ```
