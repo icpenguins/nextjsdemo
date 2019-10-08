@@ -5,8 +5,8 @@ import fetch from 'isomorphic-unfetch';
 import './TirePressureData.css'
 
 export default class TirePressure extends React.Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
 
         this.state = {
             onData: {
