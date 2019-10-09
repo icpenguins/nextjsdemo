@@ -1,14 +1,7 @@
 'using strict'
 
-//import Enzyme from 'enzyme'
-//import Adapter from 'enzyme-adapter-react-16'
 import { shallow } from 'enzyme'
-//import fetch from 'isomorphic-unfetch'
 import TirePressureForm from '../../../component/tire/TirePressureForm'
-
-//Enzyme.configure({ adapter: new Adapter() });
-
-//jest.mock('isomorphic-unfetch')
 
 describe('component:tire:pressuredform - tire pressure form', () => {
 
