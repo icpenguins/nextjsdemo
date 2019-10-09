@@ -1,7 +1,7 @@
 #tirePressureForm input {
     width: 80px;
     font-size: .75em;
-    height: 2em;
+    height: 1.5em;
 }
 
 #tirePressureForm label {
@@ -9,5 +9,5 @@
 }
 
 #tirePressureForm button {
-    height: 3em;
+    height: 1.9em;
 }
