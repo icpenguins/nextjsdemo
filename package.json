@@ -25,6 +25,7 @@
       "**/*.{js,jsx}",
       "!babel.config.js",
       "!next.config.js",
+      "!pages/_*.js",
       "!**/coverage/**",
       "!**/node_modules/**",
       "!**/vendor/**"
@@ -80,7 +81,7 @@
     "jest-environment-enzyme": "^7.1.1",
     "jest-enzyme": "^7.1.1",
     "jest-junit": "^8.0.0",
-    "react-test-renderer": "^16.10.1",
+    "react-test-renderer": "^16.10.2",
     "ts-jest": "^24.1.0"
   }
 }
