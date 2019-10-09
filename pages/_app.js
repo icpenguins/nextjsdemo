@@ -22,15 +22,6 @@ export default class NextjsDemo extends App {
 
     return (
       <>
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-            <Navbar.Brand href="/">Tire Information</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="mr-auto">
-                    <Nav.Link href="/tirepressure">Pressure</Nav.Link>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           title='Next.js Demo'
@@ -42,6 +33,15 @@ export default class NextjsDemo extends App {
             { property: 'og:title', content: 'Next.js Demo' }
           ]}
         />
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
+            <Navbar.Brand href="/">Tire Information</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                    <Nav.Link href="/tirepressure">Pressure</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
         <Component {...pageProps} />
         <footer class="footer">
             <div class="container">
