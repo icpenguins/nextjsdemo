@@ -12,6 +12,7 @@ export default class TirePressureForm extends React.Component {
 
         this.handleClick = this.handleClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleKeyDown = this.handleKeyDown.bind(this)
     }
 
     getDefaultState(setState) {
@@ -58,7 +59,7 @@ export default class TirePressureForm extends React.Component {
 
     handleChange(event) {
         let obj = {}
-        
+
         createMutableObject(obj, event.target.name, event.target.value)
         createMutableObject(obj, 'get_data', false)
 
@@ -66,7 +67,17 @@ export default class TirePressureForm extends React.Component {
     }
 
     handleClick(event) {
-        this.setState(createMutableObject({}, 'get_data', true))
+        this.getData(event)
+    }
+
+    handleKeyDown(event) {
+        if (event.keyCode === 13) {
+            this.getData(event)
+        }
+    }
+
+    getData(event) {
+        this.setState(createMutableObject({}, 'get_data', true) )
         event.preventDefault();
     }
 
@@ -83,7 +94,7 @@ export default class TirePressureForm extends React.Component {
                         Maximum Cold Tire Pressure (PSI)
                         <input name="max_psi" type="number" value={this.state.max_psi} onChange={this.handleChange} />
                     </label>
-                    <button onClick={this.handleClick}>Get Load</button>
+                    <button onKeyDown={this.handleKeyDown} onClick={this.handleClick}>Get Load</button>
                 </form>
                 <TirePressure info={this.state}/>
             </div>
