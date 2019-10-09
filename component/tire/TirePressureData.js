@@ -4,7 +4,7 @@ import React from 'react'
 import fetch from 'isomorphic-unfetch'
 import './TirePressureData.css'
 
-export default class TirePressure extends React.Component {
+export default class TirePressureData extends React.Component {
     constructor(props) {
         super(props)
 

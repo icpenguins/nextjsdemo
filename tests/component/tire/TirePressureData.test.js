@@ -1,9 +1,8 @@
 'using strict'
 
 import { shallow } from 'enzyme'
-//import React from 'react'
 import fetch from 'isomorphic-unfetch'
-import TirePressure from '../../../component/tire/TirePressureData'
+import TirePressureData from '../../../component/tire/TirePressureData'
 
 jest.mock('isomorphic-unfetch')
 
@@ -25,7 +24,7 @@ describe('component:tire:pressuredata - tire pressure data error ID', () => {
             max_psi: 65
         }
 
-        wrapper = shallow(<TirePressure info={mockProps} />)
+        wrapper = shallow(<TirePressureData info={mockProps} />)
     })
 
     it('should be div id=tirePressureError', () => {
@@ -85,7 +84,7 @@ describe('component:tire:pressuredata - tire pressure data component result', ()
             max_psi: 65
         }
 
-        wrapper = shallow(<TirePressure info={mockProps} />)
+        wrapper = shallow(<TirePressureData info={mockProps} />)
     })
 
     it('should be div id=tirePressureData', () => {

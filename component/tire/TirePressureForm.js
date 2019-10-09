@@ -96,7 +96,7 @@ export default class TirePressureForm extends React.Component {
                     </label>
                     <button onKeyDown={this.handleKeyDown} onClick={this.handleClick}>Get Load</button>
                 </form>
-                <TirePressure info={this.state}/>
+                <TirePressureData info={this.state}/>
             </div>
         )
     }
