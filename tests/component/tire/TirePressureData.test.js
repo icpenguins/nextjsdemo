@@ -87,8 +87,8 @@ describe('component:tire:pressuredata - tire pressure data component result', ()
         wrapper = shallow(<TirePressureData info={mockProps} />)
     })
 
-    it('should be div id=tirePressureData', () => {
-        let a = wrapper.find('#tirePressureData')
-        expect(a.length).toBe(1)
+    it('should be div id=tirePressureData and the table should have 7 rows', () => {
+        expect(wrapper.find('#tirePressureData').length).toBe(1)
+        expect(wrapper.find('.tirePressureBody').find('.tirePressureRow').length).toBe(7)
     })
 })
