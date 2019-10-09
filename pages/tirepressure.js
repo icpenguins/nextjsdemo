@@ -14,7 +14,6 @@ export default class TirePressure extends React.Component {
                         { property: 'og:title', content: 'Next.js Demo | Tire Pressure' }
                     ]}
                 />
-                <Navigation />
                 <TirePressureForm />
             </div>
         )
