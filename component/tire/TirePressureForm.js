@@ -1,7 +1,7 @@
 'using strict'
 
 import React from 'react'
-import TirePressure from './TirePressureData'
+import TirePressureData from './TirePressureData'
 import { createMutableObject } from '../../utils/object'
 
 export default class TirePressureForm extends React.Component {
