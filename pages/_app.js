@@ -43,6 +43,11 @@ export default class NextjsDemo extends App {
           ]}
         />
         <Component {...pageProps} />
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">4252 Concepts LLC | <a href="https://www.4252.io" target="_blank">Contact Us</a> | Find Us </span><a href="https://github.com/4252" target="_blank"><img src="/static/img/logo/GitHub-Mark-32px.png" /></a>
+            </div>
+        </footer>
       </>
     )
   }
