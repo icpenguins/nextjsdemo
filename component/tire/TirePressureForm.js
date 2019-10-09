@@ -3,6 +3,7 @@
 import React from 'react'
 import TirePressureData from './TirePressureData'
 import { createMutableObject } from '../../utils/object'
+import './TirePressureForm.css'
 
 export default class TirePressureForm extends React.Component {
     constructor() {
@@ -83,7 +84,7 @@ export default class TirePressureForm extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="tirePressureForm">
                 <form>
                     <label>
                         Maximum Gross Tire Load (LBS)
