@@ -46,10 +46,10 @@ steps:
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: |
-      'component/**/?(*.js|*.css)'
-      'model/**/?(*.js|*.css)'
-      'pages/**/?(*.js|*.css)'
-      'utils/**/*.js'
+      component\**\?(*.js|*.css)
+      model\**\?(*.js|*.css)
+      pages\**\?(*.js|*.css)
+      utils\**\*.js
       babel.config.js
       Dockerfile
       next.config.js
