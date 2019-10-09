@@ -31,25 +31,25 @@ export default class TirePressureForm extends React.Component {
             createMutableObject(objState, 'max_psi', this.state.max_psi === undefined ? "" : this.state.max_psi)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('vehicle_weight')) {
+        if (setState !== undefined && setState.hasOwnProperty('vehicle_weight')) {
             createMutableObject(objState, 'vehicle_weight', setState.vehicle_weight)
         } else {
             createMutableObject(objState, 'vehicle_weight', this.state !== undefined && this.state.hasOwnProperty('vehicle_weight') ? this.state.vehicle_weight : null)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('front_to_rear_ratio')) {
+        if (setState !== undefined && setState.hasOwnProperty('front_to_rear_ratio')) {
             createMutableObject(objState, 'front_to_rear_ratio', setState.front_to_rear_ratio)
         } else {
             createMutableObject(objState, 'front_to_rear_ratio', this.state !== undefined && this.state.hasOwnProperty('front_to_rear_ratio') ? this.state.front_to_rear_ratio : 60)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('vehicle_tires')) {
+        if (setState !== undefined && setState.hasOwnProperty('vehicle_tires')) {
             createMutableObject(objState, 'vehicle_tires', setState.vehicle_tires)
         } else {
             createMutableObject(objState, 'vehicle_tires', this.state !== undefined && this.state.hasOwnProperty('vehicle_tires') ? this.state.vehicle_tires : 4)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('get_data')) {
+        if (setState !== undefined && setState.hasOwnProperty('get_data')) {
             createMutableObject(objState, 'get_data', setState.get_data)
         } else {
             createMutableObject(objState, 'get_data', this.state !== undefined && this.state.hasOwnProperty('get_data') ? this.state.get_data : false)
