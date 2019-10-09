@@ -1,6 +1,7 @@
 import React from 'react'
 import App from 'next/app'
 import Helmet from 'react-helmet'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class NextjsDemo extends App {
   static async getInitialProps ({ Component, ctx }) {
