@@ -34,7 +34,16 @@ export default class NextjsDemo extends App {
           ]}
         />
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
-            <Navbar.Brand href="/">Tire Information</Navbar.Brand>
+            <Navbar.Brand href="/">
+                <img
+                    alt="Tire"
+                    src="/static/img/logo/tire_32px.png"
+                    width="32"
+                    height="32"
+                    className="d-inline-block align-top"
+                />{' '}
+                Tire Information
+            </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
