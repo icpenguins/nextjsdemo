@@ -1,6 +1,7 @@
 import React from 'react'
 import App from 'next/app'
 import Helmet from 'react-helmet'
+import Image from 'react-bootstrap/Image'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -51,6 +52,7 @@ export default class NextjsDemo extends App {
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
+        <Image src="/static/img/splash1920.png" fluid />
         <Component {...pageProps} />
         <footer class="footer">
             <div class="container">
