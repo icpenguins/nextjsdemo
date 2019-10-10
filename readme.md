@@ -1,5 +1,7 @@
 # Read Me Information
 
+[![Build Status](https://dev.azure.com/4252/NextJSDemo/_apis/build/status/icpenguins.nextjsdemo?branchName=master)](https://dev.azure.com/4252/NextJSDemo/_build/latest?definitionId=1&branchName=master)
+
 ## VS Code settings.json
 
 The three settings below are to workaround two different bugs. Typically you would use `"jest.showCoverageOnLoad": true` in the VS Code settings file to have Jest run automatically. However, there are cases where it crashes stating that it has failed to start to many times. The setting below resolves that issue.

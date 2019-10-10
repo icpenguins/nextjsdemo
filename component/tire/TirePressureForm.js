@@ -1,8 +1,9 @@
 'using strict'
 
 import React from 'react'
-import TirePressure from './TirePressureData'
+import TirePressureData from './TirePressureData'
 import { createMutableObject } from '../../utils/object'
+import './TirePressureForm.css'
 
 export default class TirePressureForm extends React.Component {
     constructor() {
@@ -12,6 +13,7 @@ export default class TirePressureForm extends React.Component {
 
         this.handleClick = this.handleClick.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.handleKeyDown = this.handleKeyDown.bind(this)
     }
 
     getDefaultState(setState) {
@@ -29,25 +31,25 @@ export default class TirePressureForm extends React.Component {
             createMutableObject(objState, 'max_psi', this.state.max_psi === undefined ? "" : this.state.max_psi)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('vehicle_weight')) {
+        if (setState !== undefined && setState.hasOwnProperty('vehicle_weight')) {
             createMutableObject(objState, 'vehicle_weight', setState.vehicle_weight)
         } else {
             createMutableObject(objState, 'vehicle_weight', this.state !== undefined && this.state.hasOwnProperty('vehicle_weight') ? this.state.vehicle_weight : null)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('front_to_rear_ratio')) {
+        if (setState !== undefined && setState.hasOwnProperty('front_to_rear_ratio')) {
             createMutableObject(objState, 'front_to_rear_ratio', setState.front_to_rear_ratio)
         } else {
             createMutableObject(objState, 'front_to_rear_ratio', this.state !== undefined && this.state.hasOwnProperty('front_to_rear_ratio') ? this.state.front_to_rear_ratio : 60)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('vehicle_tires')) {
+        if (setState !== undefined && setState.hasOwnProperty('vehicle_tires')) {
             createMutableObject(objState, 'vehicle_tires', setState.vehicle_tires)
         } else {
             createMutableObject(objState, 'vehicle_tires', this.state !== undefined && this.state.hasOwnProperty('vehicle_tires') ? this.state.vehicle_tires : 4)
         }
 
-        if (!setState === undefined && setState.hasOwnProperty('get_data')) {
+        if (setState !== undefined && setState.hasOwnProperty('get_data')) {
             createMutableObject(objState, 'get_data', setState.get_data)
         } else {
             createMutableObject(objState, 'get_data', this.state !== undefined && this.state.hasOwnProperty('get_data') ? this.state.get_data : false)
@@ -58,7 +60,7 @@ export default class TirePressureForm extends React.Component {
 
     handleChange(event) {
         let obj = {}
-        
+
         createMutableObject(obj, event.target.name, event.target.value)
         createMutableObject(obj, 'get_data', false)
 
@@ -66,13 +68,23 @@ export default class TirePressureForm extends React.Component {
     }
 
     handleClick(event) {
-        this.setState(createMutableObject({}, 'get_data', true))
+        this.getData(event)
+    }
+
+    handleKeyDown(event) {
+        if (event.keyCode === 13) {
+            this.getData(event)
+        }
+    }
+
+    getData(event) {
+        this.setState(createMutableObject({}, 'get_data', true) )
         event.preventDefault();
     }
 
     render() {
         return (
-            <div>
+            <div id="tirePressureForm">
                 <form>
                     <label>
                         Maximum Gross Tire Load (LBS)
@@ -83,9 +95,9 @@ export default class TirePressureForm extends React.Component {
                         Maximum Cold Tire Pressure (PSI)
                         <input name="max_psi" type="number" value={this.state.max_psi} onChange={this.handleChange} />
                     </label>
-                    <button onClick={this.handleClick}>Get Load</button>
+                    <button onKeyDown={this.handleKeyDown} onClick={this.handleClick}>Get Load</button>
                 </form>
-                <TirePressure info={this.state}/>
+                <TirePressureData info={this.state}/>
             </div>
         )
     }

@@ -1,12 +1,12 @@
 'using strict'
 
 import React from 'react'
-import fetch from 'isomorphic-unfetch';
+import fetch from 'isomorphic-unfetch'
 import './TirePressureData.css'
 
-export default class TirePressure extends React.Component {
-    constructor() {
-        super()
+export default class TirePressureData extends React.Component {
+    constructor(props) {
+        super(props)
 
         this.state = {
             onData: {
@@ -32,54 +32,55 @@ export default class TirePressure extends React.Component {
         this.setState({ onError: null })
     }
 
-    getData(info) {
-        fetch(`/api/tire/pressure?max_load=${info.max_load}&max_psi=${info.max_psi}`)
-            .then(res => {
-                return res.json()
-            })
-            .then(data => {
-                if (data.status === 'err') {
-                    throw Error(`The request returned an error. ${data.message}`)
-                }
+    getData() {
+        if (this.props.info.get_data) {
+            this.props.info.get_data = false
 
-                this.state.loadToPsi = data.body.loadToPsi
-
-                let pressureTable = data.body.loadToPsiList.map((item) => {
-                    return (
-                        <div className="tirePressureRow" key={item.psi}>
-                            <div className="tirePressureCell">{item.psi}</div>
-                            <div className="tirePressureCell">{item.load}</div>
-                        </div>
-                    )})
-
-                this.clearOnError()
-
-                this.setState({
-                    onData: {
-                        hasData: true,
-                        loadToPsi: data.body.loadToPsi,
-                        pressureTable: pressureTable
+            fetch(`/api/tire/pressure?max_load=${this.props.info.max_load}&max_psi=${this.props.info.max_psi}`)
+                .then(res => {
+                    return res.json()
+                })
+                .then(data => {
+                    if (data.status === 'err') {
+                        throw Error(`The request returned an error. ${data.message}`)
                     }
-                })
-            })
-            .catch(e => {
-                // Clear all state data
-                this.clearOnData()
 
-                // Send the error
-                this.setState({
-                    onError: <div>{e.message}</div>
+                    this.state.loadToPsi = data.body.loadToPsi
+
+                    let pressureTable = data.body.loadToPsiList.map((item) => {
+                        return (
+                            <div className="tirePressureRow" key={item.psi}>
+                                <div className="tirePressureCell">{item.psi}</div>
+                                <div className="tirePressureCell">{item.load}</div>
+                            </div>
+                        )})
+
+                    this.clearOnError()
+
+                    this.setState({
+                        onData: {
+                            hasData: true,
+                            loadToPsi: data.body.loadToPsi,
+                            pressureTable: pressureTable
+                        }
+                    })
                 })
-            })
+                .catch(e => {
+                    // Clear all state data
+                    this.clearOnData()
+
+                    // Send the error
+                    this.setState({
+                        onError: <div id="tirePressureError">{e.message}</div>
+                    })
+                })
+        }
     }
 
     render() {
         let result = null
 
-        if (this.props.info.get_data) {
-            this.props.info.get_data = false
-            this.getData(this.props.info)
-        }
+        this.getData()
 
         if (this.state.onData.hasData) {
             result = (

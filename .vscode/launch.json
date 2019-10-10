@@ -27,7 +27,9 @@
             "name": "vscode-jest-tests",
             "request": "launch",
             "args": [
-                "--runInBand"
+                "--runInBand",
+                "-t",
+                "${selectedText}"
             ],
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",

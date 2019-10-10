@@ -11,14 +11,9 @@ export default class TirePressure extends React.Component {
                     htmlAttributes={{ lang: 'en' }}
                     title='Next.js Demo | Tire Pressure'
                     meta={[
-                            {
-                                name: 'viewport',
-                                content: 'width=device-width, initial-scale=1'
-                            },
-                    { property: 'og:title', content: 'Next.js Demo' }
-                ]}
+                        { property: 'og:title', content: 'Next.js Demo | Tire Pressure' }
+                    ]}
                 />
-                <Navigation />
                 <TirePressureForm />
             </div>
         )
