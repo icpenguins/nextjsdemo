@@ -26,11 +26,16 @@ export default class NextjsDemo extends App {
         <Helmet
           htmlAttributes={{ lang: 'en' }}
           title='Next.js Demo'
+          link={[
+              { rel: 'shortcut icon', href: '/static/icon/favicon.ico' },
+              { rel: 'apple-touch-icon', sizes: '180x180', href: '/static/icon/apple-touch-icon.png' },
+              { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/static/icon/favicon-16x16.png' },
+              { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/static/icon/favicon-32x32.png' },
+              { rel: 'manifest', href: '/static/icon/site.webmanifest' },
+              { rel: 'mask-icon', href: '/static/icon/safari-pinned-tab.svg', color: '#5bbad5' },
+          ]}
           meta={[
-            {
-              name: 'viewport',
-              content: 'width=device-width, initial-scale=1'
-            },
+            { name: 'viewport', content: 'width=device-width, initial-scale=1' },
             { property: 'og:title', content: 'Next.js Demo' }
           ]}
         />
@@ -38,7 +43,7 @@ export default class NextjsDemo extends App {
             <Navbar.Brand href="/">
                 <img
                     alt="Tire"
-                    src="/static/img/logo/tire_32px.png"
+                    src="/static/icon/favicon-32x32.png"
                     width="32"
                     height="32"
                     className="d-inline-block align-top"
