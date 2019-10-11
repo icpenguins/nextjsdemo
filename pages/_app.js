@@ -36,7 +36,8 @@ export default class NextjsDemo extends App {
           ]}
           meta={[
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { property: 'og:title', content: 'Next.js Demo' }
+            { property: 'og:title', content: 'Next.js Demo' },
+            { property: 'og:image', content: '/static/img/splash1920.png' }
           ]}
         />
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" fixed="top">
