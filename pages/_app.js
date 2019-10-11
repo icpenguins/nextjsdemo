@@ -54,7 +54,7 @@ export default class NextjsDemo extends App {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/tirepressure">Pressure</Nav.Link>
+                    <Nav.Link href="/pressure">Pressure</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
