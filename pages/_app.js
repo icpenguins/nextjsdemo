@@ -25,7 +25,7 @@ export default class NextjsDemo extends App {
       <>
         <Helmet
           htmlAttributes={{ lang: 'en' }}
-          title='Next.js Demo'
+          title='Tire Information'
           link={[
               { rel: 'shortcut icon', href: '/static/icon/favicon.ico' },
               { rel: 'apple-touch-icon', sizes: '180x180', href: '/static/icon/apple-touch-icon.png' },
@@ -36,7 +36,7 @@ export default class NextjsDemo extends App {
           ]}
           meta={[
             { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-            { property: 'og:title', content: 'Next.js Demo' },
+            { property: 'og:title', content: 'Tire Information' },
             { property: 'og:image', content: '/static/img/splash1920.png' }
           ]}
         />

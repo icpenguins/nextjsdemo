@@ -1,6 +1,5 @@
 import React from 'react'
 import Helmet from 'react-helmet'
-import Navigation from '../component/navigation'
 import TirePressureForm from '../component/tire/TirePressureForm'
 
 export default class TirePressure extends React.Component {
@@ -9,9 +8,9 @@ export default class TirePressure extends React.Component {
             <div>
                 <Helmet
                     htmlAttributes={{ lang: 'en' }}
-                    title='Next.js Demo | Tire Pressure'
+                    title='Tire Information | Pressure'
                     meta={[
-                        { property: 'og:title', content: 'Next.js Demo | Tire Pressure' }
+                        { property: 'og:title', content: 'Tire Information | Pressure' }
                     ]}
                 />
                 <TirePressureForm />
