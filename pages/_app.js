@@ -58,11 +58,11 @@ export default class NextjsDemo extends App {
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
-        <Image src="/static/img/splash1920.png" fluid />
+        <Image id="splash" src="/static/img/splash1920.png" fluid/>
         <Component {...pageProps} />
-        <footer class="footer">
-            <div class="container">
-                <span class="text-muted">4252 Concepts LLC | <a href="https://www.4252.io" target="_blank">Contact Us</a> | Find Us </span><a href="https://github.com/4252" target="_blank"><img src="/static/img/logo/GitHub-Mark-32px.png" /></a>
+        <footer className="footer">
+            <div className="container">
+                <span className="text-muted">4252 Concepts LLC | <a href="https://www.4252.io" target="_blank">Contact Us</a> | Find Us </span><a href="https://github.com/4252" target="_blank"><img src="/static/img/logo/GitHub-Mark-32px.png" /></a>
             </div>
         </footer>
       </>
