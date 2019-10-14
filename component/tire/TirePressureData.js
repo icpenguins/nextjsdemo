@@ -18,6 +18,45 @@ export default class TirePressureData extends React.Component {
         }
     }
 
+    buildResponseData(parsed) {
+        this.clearOnError()
+
+        let pressureTable = parsed.data.loadToPsiList.map((item) => {
+            return (
+                <div className="tirePressureRow" key={item.psi}>
+                    <div className="tirePressureCell">{item.psi}</div>
+                    <div className="tirePressureCell">{item.load}</div>
+                </div>
+            )})
+
+        this.setState({
+            onData: {
+                hasData: true,
+                loadToPsi: parsed.data.loadToPsi,
+                pressureTable: pressureTable
+            }
+        })
+    }
+
+    buildResponseError(parsed) {
+        this.clearOnData()
+        let i = 0
+
+        let err = parsed.errors.map((e, i) => {
+            return (
+                <div className="tirePressureRow" key={i}>
+                    <div className="tirePressureCell">{e.status}</div>
+                    <div className="tirePressureCell">{e.title}</div>
+                    <div className="tirePressureCell">{e.details}</div>
+                </div>
+            )
+        })
+
+        this.setState({
+            onError: <div id="tirePressureError">{err}</div>
+        })
+    }
+
     clearOnData() {
         this.setState({
             onData: {
@@ -40,30 +79,12 @@ export default class TirePressureData extends React.Component {
                 .then(res => {
                     return res.json()
                 })
-                .then(data => {
-                    if (data.status === 'err') {
-                        throw Error(`The request returned an error. ${data.message}`)
+                .then(parsed => {
+                    if (parsed.errors.length > 0) {
+                        this.buildResponseError(parsed)
+                    } else {
+                        this.buildResponseData(parsed)
                     }
-
-                    this.state.loadToPsi = data.body.loadToPsi
-
-                    let pressureTable = data.body.loadToPsiList.map((item) => {
-                        return (
-                            <div className="tirePressureRow" key={item.psi}>
-                                <div className="tirePressureCell">{item.psi}</div>
-                                <div className="tirePressureCell">{item.load}</div>
-                            </div>
-                        )})
-
-                    this.clearOnError()
-
-                    this.setState({
-                        onData: {
-                            hasData: true,
-                            loadToPsi: data.body.loadToPsi,
-                            pressureTable: pressureTable
-                        }
-                    })
                 })
                 .catch(e => {
                     // Clear all state data

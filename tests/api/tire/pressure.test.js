@@ -16,7 +16,7 @@ describe('api:tire:pressure - test the tire/pressure api', () => {
         await pressure(req, res)
 
         expect(res.statusCode).toBe(200)
-        expect(res.body.body.status).toBe('ok')
+        expect(res.body.data.errors.length).toBe(0)
     })
 
     it('should getOptimumTirePressure', async () => {
@@ -30,7 +30,7 @@ describe('api:tire:pressure - test the tire/pressure api', () => {
         await pressure(req, res)
 
         expect(res.statusCode).toBe(200)
-        expect(res.body.body.status).toBe('ok')
+        expect(res.body.data.errors.length).toBe(0)
     })
 
     it('should return an error response status', async () => {
@@ -40,6 +40,6 @@ describe('api:tire:pressure - test the tire/pressure api', () => {
         await pressure(req, res)
 
         expect(res.statusCode).toBe(400)
-        expect(res.body.body.status).toBe('err')
+        expect(res.body.data.errors.length).toBe(1)
     })
 })
