@@ -23,7 +23,7 @@ export default class TireInformation {
         this.tire_count = tire_count
         this.front_to_rear_ratio = front_to_rear_ratio
 
-        this.vehicle_weight = (typeof vehicle_weight !== 'undefined') ?  vehicle_weight : null
+        this.vehicle_weight = (vehicle_weight !== undefined) ?  vehicle_weight : null
 
         this.loadToPsi = null
         this.loadToPsiList = null
@@ -89,7 +89,7 @@ export default class TireInformation {
      */
     getOptimumTirePressure() {
         // Ensure the values have been validated
-        this.validateValues()
+        this.validateValues(true)
 
         const rearRatio = 1 - this.front_to_rear_ratio
         const loadPsi = this.getLoadToPsi()
@@ -130,12 +130,12 @@ export default class TireInformation {
                 throw Error('The maximum load must be a number greater than 1.')
             }
 
-            if (this.max_psi === undefined || this.max_psi === null || Number.isNaN(this.max_psi) || this.max_psi < 1) {
+            if (this.max_psi === undefined || this.max_psi === "" || this.max_psi < 1 || this.max_psi === null || Number.isNaN(this.max_psi)) {
                 throw Error('The maximum PSI must be a number greater than 1.')
             }
 
-            if (needWeight && (this.vehicle_weight === undefined || this.vehicle_weight === null || Number.isNaN(this.vehicle_weight) || this.vehicle_weight < 100)) {
-                throw Error('The maximum vehicle weight must be a number greater than 100 lbs.')
+            if (needWeight && (this.vehicle_weight === undefined || this.vehicle_weight === "" || this.vehicle_weight < 10 || this.vehicle_weight === null || Number.isNaN(this.vehicle_weight))) {
+                throw Error('The maximum vehicle weight must be a number greater than 10 lbs.')
             }
 
             if (this.front_to_rear_ratio > 1) {
