@@ -19,78 +19,71 @@ variables:
   containerRegistry: '4252pipe.azurecr.io'
   serviceConnection: '4252pipe'
 
-jobs:
-- job: build
-  steps:
-  - task: NodeTool@0
-    displayName: 'Install Node.js'
-    inputs:
-      versionSpec: '10.x'
+steps:
+- task: NodeTool@0
+  displayName: 'Install Node.js'
+  inputs:
+    versionSpec: '10.x'
 
-  - script: |
-      npm install
-      npm run build
-      npm test -- --ci --updateSnapshot --reports=default --reports=jest-junit
-    displayName: 'npm install and build'
+- script: |
+    npm install
+    npm run build
+    npm test -- --ci --updateSnapshot --reports=default --reports=jest-junit
+  displayName: 'npm install and build'
 
-- job: results
-  dependsOn: build
-  steps:
-  - task: PublishTestResults@2
-    condition: succeededOrFailed()
-    inputs:
-      testRunner: JUnit
-      testResultsFiles: 'artifacts/junit.xml'
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: 'artifacts/junit.xml'
 
-  - task: PublishCodeCoverageResults@1
-    inputs:
-      codeCoverageTool: Cobertura
-      summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
 
-  - task: CopyFiles@2
-    displayName: Copy files
-    inputs:
-      sourceFolder: $(Build.SourcesDirectory)
-      targetFolder: $(Build.ArtifactStagingDirectory)
-      contents: |
-        component\**\*
-        model\**\*
-        pages\**\*
-        utils\**\*
-        babel.config.js
-        Dockerfile
-        next.config.js
-        package.json
-        readme.md
+- task: CopyFiles@2
+  displayName: Copy files
+  inputs:
+    sourceFolder: $(Build.SourcesDirectory)
+    targetFolder: $(Build.ArtifactStagingDirectory)
+    contents: |
+      component\**\*
+      model\**\*
+      pages\**\*
+      utils\**\*
+      babel.config.js
+      Dockerfile
+      next.config.js
+      package.json
+      readme.md
 
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Artifacts
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifacts
 
-  - task: Docker@1
-    displayName: 'Containerize the application'
-    inputs:
-      azureSubscriptionEndpoint: $(serviceConnection)
-      azureContainerRegistry: $(containerRegistry)
-      dockerFile: '**/Dockerfile'
-      imageName: '$(fullImageName)'
-      includeLatestTag: true
+- task: Docker@1
+  displayName: 'Containerize the application'
+  inputs:
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    dockerFile: '**/Dockerfile'
+    imageName: '$(fullImageName)'
+    includeLatestTag: true
 
-- job: push
-  dependsOn: results
+- task: Docker@1
   condition: not(eq(variables['Build.Reason'], 'PullRequest'))
-  steps:
-  - task: Docker@1
-    displayName: Push image $(fullImageName)
-    inputs:
-      azureSubscriptionEndpoint: $(serviceConnection)
-      azureContainerRegistry: $(containerRegistry)
-      command: 'Push an image'
-      imageName: '$(fullImageName)'
+  displayName: Push image $(fullImageName)
+  inputs:
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    command: 'Push an image'
+    imageName: '$(fullImageName)'
 
-  - task: Docker@1
-    displayName: Push latest image
-    inputs:
-      azureSubscriptionEndpoint: $(serviceConnection)
-      azureContainerRegistry: $(containerRegistry)
-      command: 'Push an image'
-      imageName: '$(imageName):latest'
+- task: Docker@1
+  condition: not(eq(variables['Build.Reason'], 'PullRequest'))
+  displayName: Push latest image
+  inputs:
+    azureSubscriptionEndpoint: $(serviceConnection)
+    azureContainerRegistry: $(containerRegistry)
+    command: 'Push an image'
+    imageName: '$(imageName):latest'
