@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Next: Chrome",
-            "url": "http://localhost:3000",
+            "url": "http://localhost:4252",
             "webRoot": "${workspaceFolder}"
         },
         {
@@ -16,6 +16,10 @@
             "request": "launch",
             "name": "Next: Node",
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
+            "args": [
+                "-p",
+                "4252"
+            ],
             "env": {
                 "NODE_OPTIONS": "--inspect"
             },
