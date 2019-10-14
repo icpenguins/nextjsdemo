@@ -41,7 +41,7 @@ export default class TirePressureForm extends React.Component {
         if (setState !== undefined && setState.hasOwnProperty('vehicle_weight')) {
             createMutableObject(objState, 'vehicle_weight', setState.vehicle_weight)
         } else {
-            createMutableObject(objState, 'vehicle_weight', this.state !== undefined && this.state.hasOwnProperty('vehicle_weight') ? this.state.vehicle_weight : null)
+            createMutableObject(objState, 'vehicle_weight', this.state !== undefined && this.state.hasOwnProperty('vehicle_weight') ? this.state.vehicle_weight : "")
         }
 
         if (setState !== undefined && setState.hasOwnProperty('front_to_rear_ratio')) {
@@ -93,7 +93,7 @@ export default class TirePressureForm extends React.Component {
         return (
             <div id="tirePressureForm">
                 <Row className="no-gutters">
-                    <Col md>
+                    <Col md={4}>
                         <InputGroup id="max_load" className="mb-3">
                             <InputGroup.Prepend>
                                 <InputGroup.Text>Max Load, Single</InputGroup.Text>
@@ -110,7 +110,7 @@ export default class TirePressureForm extends React.Component {
                             />
                         </InputGroup>
                     </Col>
-                    <Col md>
+                    <Col md={4}>
                         <InputGroup id="max_psi" className="mb-3">
                             <InputGroup.Prepend>
                                 <InputGroup.Text>Max PSI, Cold</InputGroup.Text>
@@ -123,6 +123,30 @@ export default class TirePressureForm extends React.Component {
                                 aria-label="Max PSI, Cold"
                                 aria-describedby="max_psi"
                                 defaultValue={this.state.max_psi}
+                                onChange={this.handleChange}
+                            />
+                        </InputGroup>
+                    </Col>
+                </Row>
+                <Row className="no-gutters">
+                    <Col md={8}>
+                        <div id="tirePressureOptionalData">Optional Details</div>
+                    </Col>
+                </Row>
+                <Row className="no-gutters">
+                    <Col md={4}>
+                        <InputGroup id="vehicle_weight" className="mb-3">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>Vehicle Weight (lbs)</InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <FormControl
+                                name="vehicle_weight"
+                                as="input"
+                                type="number"
+                                placeholder="Vehicle Weight (lbs)"
+                                aria-label="Vehicle Weight (lbs)"
+                                aria-describedby="vehicle_weight"
+                                defaultValue={this.state.vehicle_weight}
                                 onChange={this.handleChange}
                             />
                         </InputGroup>

@@ -12,6 +12,7 @@ export default class TirePressureData extends React.Component {
             onData: {
                 hasData: false,
                 loadToPsi: null,
+                optimumTirePressure: null,
                 pressureTable: []
             },
             onError: null
@@ -19,11 +20,30 @@ export default class TirePressureData extends React.Component {
     }
 
     buildResponseData(parsed) {
+        let otpData = ''
+
+        let otp = parsed.data.hasOwnProperty('optimumTirePressure') ? parsed.data.optimumTirePressure : null
+
         this.clearOnError()
 
+        if (otp) {
+            otpData = (
+                <div className="optimumTirePressure">
+                    <div>Optimal Front Tire Pressure <span className="optimumTirePressureFront">{otp.frontTirePsi} (PSI)</span></div>
+                    <div>Optimal RearTire Pressure <span className="optimumTirePressureRear">{otp.rearTirePsi} (PSI)</span></div>
+                </div>
+            )
+        }
+
         let pressureTable = parsed.data.loadToPsiList.map((item) => {
+            let c = 'tirePressureRow'
+
+            if (otp !== null && (otp.frontTirePsi === item.psi || otp.rearTirePsi === item.psi)) {
+                c += ' tirePressureOptimum'
+            }
+
             return (
-                <div className="tirePressureRow" key={item.psi}>
+                <div className={c} key={item.psi}>
                     <div className="tirePressureCell">{item.psi}</div>
                     <div className="tirePressureCell">{item.load}</div>
                 </div>
@@ -33,6 +53,7 @@ export default class TirePressureData extends React.Component {
             onData: {
                 hasData: true,
                 loadToPsi: parsed.data.loadToPsi,
+                optimumTirePressure: otpData,
                 pressureTable: pressureTable
             }
         })
@@ -47,7 +68,7 @@ export default class TirePressureData extends React.Component {
                 <div className="tirePressureRow" key={i}>
                     <div className="tirePressureCell">{e.status}</div>
                     <div className="tirePressureCell">{e.title}</div>
-                    <div className="tirePressureCell">{e.details}</div>
+                    <div className="tirePressureCell">{e.detail}</div>
                 </div>
             )
         })
@@ -57,11 +78,25 @@ export default class TirePressureData extends React.Component {
         })
     }
 
+    buildQuery() {
+        let query = '/api/tire/pressure?'
+
+        query += `max_load=${this.props.info.max_load}`
+        query += `&max_psi=${this.props.info.max_psi}`
+
+        if (this.props.info.vehicle_weight !== undefined && this.props.info.vehicle_weight !== "") {
+            query += `&vehicle_weight=${this.props.info.vehicle_weight}`
+        }
+
+        return query
+    }
+
     clearOnData() {
         this.setState({
             onData: {
                 hasData: false,
                 loadToPsi: null,
+                optimumTirePressure: null,
                 pressureTable: []
             }
         })
@@ -75,7 +110,7 @@ export default class TirePressureData extends React.Component {
         if (this.props.info.get_data) {
             this.props.info.get_data = false
 
-            fetch(`/api/tire/pressure?max_load=${this.props.info.max_load}&max_psi=${this.props.info.max_psi}`)
+            fetch(this.buildQuery())
                 .then(res => {
                     return res.json()
                 })
@@ -107,6 +142,7 @@ export default class TirePressureData extends React.Component {
             result = (
                 <div id="tirePressureData">
                     <div className="tirePressureLoad">Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
+                    {this.state.onData.optimumTirePressure}
                     <div className="tirePressureTable">
                     <div className="tirePressureHeading">
                         <div className="tirePressureRow">
