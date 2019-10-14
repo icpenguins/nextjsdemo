@@ -43,17 +43,20 @@ steps:
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
 
 - task: CopyFiles@2
-  displayName: Copy files
+  displayName: 'Copy files from: $(Build.SourcesDirectory)'
   inputs:
     sourceFolder: $(Build.SourcesDirectory)
     targetFolder: $(Build.ArtifactStagingDirectory)
     contents: |
-      component\**\*
-      model\**\*
-      pages\**\*
-      utils\**\*
+      component\**
+      deploy\**
+      model\**
+      pages\**
+      static\**
+      utils\**
       babel.config.js
       Dockerfile
+      docker-compose.yml
       next.config.js
       package.json
       readme.md
@@ -87,3 +90,4 @@ steps:
     azureContainerRegistry: $(containerRegistry)
     command: 'Push an image'
     imageName: '$(imageName):latest'
+
