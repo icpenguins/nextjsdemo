@@ -12,8 +12,12 @@ describe('component:tire:pressuredata - tire pressure data error ID', () => {
         fetch.mockResolvedValue({
             json: () => {
                 return {
-                    message: 'mock error',
-                    status: 'err'
+                    data: { },
+                    errors: [{
+                        details: 'mock error',
+                        status: 400,
+                        title: 'Error'
+                    }]
                 }
             }
         })
@@ -33,13 +37,49 @@ describe('component:tire:pressuredata - tire pressure data error ID', () => {
     })
 })
 
+describe('component:tire:pressuredata - tire pressure data supports more than one error', () => {
+    let wrapper
+    beforeEach(() => {
+        fetch.mockResolvedValue({
+            json: () => {
+                return {
+                    data: { },
+                    errors: [{
+                        details: 'mock error',
+                        status: 400,
+                        title: 'Error'
+                    }, {
+                        details: 'mock error 2',
+                        status: 500,
+                        title: 'Error2'
+                    }]
+                }
+            }
+        })
+
+        const mockProps = {
+            get_data: true,
+            max_load: 3860,
+            max_psi: 65
+        }
+
+        wrapper = shallow(<TirePressureData info={mockProps} />)
+    })
+
+    it('should have two error rows', () => {
+        let a = wrapper.find('#tirePressureError').find('.tirePressureRow')
+        expect(a.length).toBe(2)
+    })
+})
+
+
 describe('component:tire:pressuredata - tire pressure data component result', () => {
     let wrapper
     beforeEach(() => {
         fetch.mockResolvedValue({
             json: () => {
                 return {
-                    body: {
+                    data: {
                         "loadToPsi": 59.38,
                         "loadToPsiList": [
                             {
@@ -72,8 +112,7 @@ describe('component:tire:pressuredata - tire pressure data component result', ()
                               }
                         ]
                     },
-                    message: { },
-                    status: 'ok'
+                    errors: [ ]
                 }
             }
         })

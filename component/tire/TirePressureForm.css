@@ -1,13 +1,4 @@
-#tirePressureForm input {
-    width: 80px;
-    font-size: .75em;
-    height: 1.5em;
-}
-
-#tirePressureForm label {
-    font-size: 1.5em;
-}
-
-#tirePressureForm button {
-    height: 1.9em;
+#tirePressureOptionalData {
+    font-size: 1.1em;
+    color: gray;
 }

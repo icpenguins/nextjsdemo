@@ -27,3 +27,7 @@
 .tirePressureBody {
     display: table-row-group;
 }
+
+.tirePressureOptimum {
+    background-color: lightsteelblue;
+}

@@ -39,7 +39,8 @@ describe('model:TireInformation - test the TireInformation model class', () =>{
         expect(() => { new TireInformation(3860, 65).validateValues(true) }).toThrow()
         expect(() => { new TireInformation(3860, 65, null).validateValues(true) }).toThrow()
         expect(() => { new TireInformation(3860, 65, NaN).validateValues(true) }).toThrow()
-        expect(() => { new TireInformation(3860, 65, 99).validateValues(true) }).toThrow()
+        expect(() => { new TireInformation(3860, 65, 9).validateValues(true) }).toThrow()
+        expect(() => { new TireInformation(3860, 65, "").validateValues(true) }).toThrow()
 
         expect(() => { new TireInformation(3860, 65, 200, 2).validateValues() }).toThrow()
         expect(() => { new TireInformation(3860, 65, 200, .7, 0).validateValues() }).toThrow()

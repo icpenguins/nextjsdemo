@@ -16,12 +16,12 @@ export default class response {
 
 export class responseText {
     constructor() {
-        this.body
+        this.data
     }
 
-    json(body) {
-        this.body = body
+    json(data) {
+        this.data = data
 
-        return JSON.stringify(body)
+        return JSON.stringify(data)
     }
 }

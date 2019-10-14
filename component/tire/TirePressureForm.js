@@ -1,8 +1,15 @@
 'using strict'
 
+import { createMutableObject } from '../../utils/object'
+import {
+    Button,
+    Col,
+    FormControl,
+    InputGroup,
+    Row
+}  from 'react-bootstrap'
 import React from 'react'
 import TirePressureData from './TirePressureData'
-import { createMutableObject } from '../../utils/object'
 import './TirePressureForm.css'
 
 export default class TirePressureForm extends React.Component {
@@ -34,7 +41,7 @@ export default class TirePressureForm extends React.Component {
         if (setState !== undefined && setState.hasOwnProperty('vehicle_weight')) {
             createMutableObject(objState, 'vehicle_weight', setState.vehicle_weight)
         } else {
-            createMutableObject(objState, 'vehicle_weight', this.state !== undefined && this.state.hasOwnProperty('vehicle_weight') ? this.state.vehicle_weight : null)
+            createMutableObject(objState, 'vehicle_weight', this.state !== undefined && this.state.hasOwnProperty('vehicle_weight') ? this.state.vehicle_weight : "")
         }
 
         if (setState !== undefined && setState.hasOwnProperty('front_to_rear_ratio')) {
@@ -85,18 +92,69 @@ export default class TirePressureForm extends React.Component {
     render() {
         return (
             <div id="tirePressureForm">
-                <form>
-                    <label>
-                        Maximum Gross Tire Load (LBS)
-                        <input name="max_load" type="number" value={this.state.max_load} onChange={this.handleChange} />
-                    </label>
-                    <br />
-                    <label>
-                        Maximum Cold Tire Pressure (PSI)
-                        <input name="max_psi" type="number" value={this.state.max_psi} onChange={this.handleChange} />
-                    </label>
-                    <button onKeyDown={this.handleKeyDown} onClick={this.handleClick}>Get Load</button>
-                </form>
+                <Row className="no-gutters">
+                    <Col md={4}>
+                        <InputGroup id="max_load" className="mb-3">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>Max Load, Single</InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <FormControl
+                                name="max_load"
+                                as="input"
+                                type="number"
+                                placeholder="Max Load (lbs)"
+                                aria-label="Max Load (lbs)"
+                                aria-describedby="max_load"
+                                defaultValue={this.state.max_load}
+                                onChange={this.handleChange}
+                            />
+                        </InputGroup>
+                    </Col>
+                    <Col md={4}>
+                        <InputGroup id="max_psi" className="mb-3">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>Max PSI, Cold</InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <FormControl
+                                name="max_psi"
+                                as="input"
+                                type="number"
+                                placeholder="Max PSI, Cold"
+                                aria-label="Max PSI, Cold"
+                                aria-describedby="max_psi"
+                                defaultValue={this.state.max_psi}
+                                onChange={this.handleChange}
+                            />
+                        </InputGroup>
+                    </Col>
+                </Row>
+                <Row className="no-gutters">
+                    <Col md={8}>
+                        <div id="tirePressureOptionalData">Optional Details</div>
+                    </Col>
+                </Row>
+                <Row className="no-gutters">
+                    <Col md={4}>
+                        <InputGroup id="vehicle_weight" className="mb-3">
+                            <InputGroup.Prepend>
+                                <InputGroup.Text>Vehicle Weight (lbs)</InputGroup.Text>
+                            </InputGroup.Prepend>
+                            <FormControl
+                                name="vehicle_weight"
+                                as="input"
+                                type="number"
+                                placeholder="Vehicle Weight (lbs)"
+                                aria-label="Vehicle Weight (lbs)"
+                                aria-describedby="vehicle_weight"
+                                defaultValue={this.state.vehicle_weight}
+                                onChange={this.handleChange}
+                            />
+                        </InputGroup>
+                    </Col>
+                    <Col sm>
+                        <Button variant="primary" onKeyDown={this.handleKeyDown} onClick={this.handleClick}>Get Load</Button>
+                    </Col>
+                </Row>
                 <TirePressureData info={this.state}/>
             </div>
         )

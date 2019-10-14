@@ -1,6 +1,6 @@
 'using strict'
 
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import TirePressureForm from '../../../component/tire/TirePressureForm'
 
 describe('component:tire:pressuredform - tire pressure form', () => {
@@ -12,7 +12,7 @@ describe('component:tire:pressuredform - tire pressure form', () => {
     })
 
     it('should be set the state value for max_load', () => {
-        let wrapper = shallow(<TirePressureForm />)
+        let wrapper = mount(<TirePressureForm />)
         let propName = 'max_load'
         let propValue = 3860
 
@@ -23,7 +23,7 @@ describe('component:tire:pressuredform - tire pressure form', () => {
     })
 
     it('should be set the state value for max_psi', () => {
-        let wrapper = shallow(<TirePressureForm />)
+        let wrapper = mount(<TirePressureForm />)
         let propName = 'max_psi'
         let propValue = 65
 
@@ -34,7 +34,7 @@ describe('component:tire:pressuredform - tire pressure form', () => {
     })
 
     it('must click and must accept enter', () => {
-        let wrapper = shallow(<TirePressureForm />)
+        let wrapper = mount(<TirePressureForm />)
         const props = [
             {
                 name: 'max_load',
