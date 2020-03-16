@@ -71,7 +71,7 @@ If you have created a pipeline build or are publishing to an Azure Container Reg
 
 <https://docs.microsoft.com/en-us/azure/container-instances/container-instances-using-azure-container-registry>
 
-### Create an Azure Key Vault
+### Create an Azure Key Vault Secret
 
 ```bash
 RES_GROUP=myresourcegroup # Resource Group name
@@ -146,4 +146,77 @@ az group deployment create \
     -g $RES_GROUP \
     --template-file deploy/azure/containerTemplate.json \
     --parameters parameters.json
+```
+
+## Deploy to Amazon Web Services
+
+### Create a Secret using AWS Secret Manager
+
+For security, create a new Azure secret "user name" and "password" as described above. The script could look similar to the below.
+
+```bash
+RES_GROUP=myresourcegroup # Resource Group name
+ACR_NAME=myregistry       # Azure Container Registry registry name
+AKV_NAME=mykeyvault       # Azure Key Vault vault name
+SEC_NAME=$ACR_NAME-aws    # The AWS usr/pwd secrets
+
+az keyvault create -g $RES_GROUP -n $AKV_NAME
+
+# Create service principal, store its password in AKV (the registry *password*)
+az keyvault secret set \
+  --vault-name $AKV_NAME \
+  --name $SEC_NAME-pull-pwd \
+  --value $(az ad sp create-for-rbac \
+                --name http://$SEC_NAME-pull \
+                --scopes $(az acr show --name $ACR_NAME --query id --output tsv) \
+                --role acrpull \
+                --query password \
+                --output tsv)
+
+# Store service principal ID in AKV (the registry *username*)
+az keyvault secret set \
+    --vault-name $AKV_NAME \
+    --name $SEC_NAME-pull-usr \
+    --value $(az ad sp show --id http://$SEC_NAME-pull --query appId --output tsv)
+```
+
+The output could should look something like the below. Find the `"value":` properties. The first one should be the "password" and the second one should be the "user name" that will be provided to the Amazon Secrets Manager.
+
+```json
+{
+  "attributes": {
+    "created": "2019-10-11T17:01:53+00:00",
+    "enabled": true,
+    "expires": null,
+    "notBefore": null,
+    "recoveryLevel": "Purgeable",
+    "updated": "2019-10-11T17:01:53+00:00"
+  },
+  "contentType": null,
+  "id": "https://[vault].vault.azure.net/secrets/registry]-aws-pull-pwd/{[a-z0-9]+}",
+  "kid": null,
+  "managed": null,
+  "tags": {
+    "file-encoding": "utf-8"
+  },
+  "value": "{guid}"
+}
+{
+  "attributes": {
+    "created": "2019-10-11T17:01:56+00:00",
+    "enabled": true,
+    "expires": null,
+    "notBefore": null,
+    "recoveryLevel": "Purgeable",
+    "updated": "2019-10-11T17:01:56+00:00"
+  },
+  "contentType": null,
+  "id": "https://[vault].vault.azure.net/secrets/[registry]-aws-pull-usr/{[a-z0-9]+}",
+  "kid": null,
+  "managed": null,
+  "tags": {
+    "file-encoding": "utf-8"
+  },
+  "value": "{guid}"
+}
 ```
