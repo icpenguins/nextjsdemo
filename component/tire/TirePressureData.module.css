@@ -31,3 +31,11 @@
 .tirePressureOptimum {
     background-color: lightsteelblue;
 }
+
+.tirePressureLoad {
+    font-weight: bold;
+}
+
+.tirePressureError {
+    color: red;
+}

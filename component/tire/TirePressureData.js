@@ -30,20 +30,21 @@ export default class TirePressureData extends React.Component {
             otpData = (
                 <div className={styles.optimumTirePressure}>
                     <div>Optimal Front Tire Pressure <span className={styles.optimumTirePressureFront}>{otp.frontTirePsi} (PSI)</span></div>
-                    <div>Optimal RearTire Pressure <span className={style.optimumTirePressureRear}>{otp.rearTirePsi} (PSI)</span></div>
+                    <div>Optimal RearTire Pressure <span className={styles.optimumTirePressureRear}>{otp.rearTirePsi} (PSI)</span></div>
                 </div>
             )
         }
 
         let pressureTable = parsed.data.loadToPsiList.map((item) => {
-            let c = 'tirePressureRow'
+            let c = styles.tirePressureRow
+            let m = { }
 
             if (otp !== null && (otp.frontTirePsi === item.psi || otp.rearTirePsi === item.psi)) {
-                c += ' tirePressureOptimum'
+                m = styles.tirePressureOptimum
             }
 
             return (
-                <div className={c} key={item.psi}>
+                <div className={`${c} ${m}`} key={item.psi}>
                     <div className={styles.tirePressureCell}>{item.psi}</div>
                     <div className={styles.tirePressureCell}>{item.load}</div>
                 </div>
@@ -65,10 +66,10 @@ export default class TirePressureData extends React.Component {
 
         let err = parsed.errors.map((e, i) => {
             return (
-                <div className={style.tirePressureRow} key={i}>
-                    <div className={style.tirePressureCell}>{e.status}</div>
-                    <div className={style.tirePressureCell}>{e.title}</div>
-                    <div className={style.tirePressureCell}>{e.detail}</div>
+                <div className={styles.tirePressureRow} key={i}>
+                    <div className={styles.tirePressureCell}>{e.status}</div>
+                    <div className={styles.tirePressureCell}>{e.title}</div>
+                    <div className={styles.tirePressureCell}>{e.detail}</div>
                 </div>
             )
         })
@@ -127,7 +128,7 @@ export default class TirePressureData extends React.Component {
 
                     // Send the error
                     this.setState({
-                        onError: <div id="tirePressureError">{e.message}</div>
+                        onError: <div class={styles.tirePressureError}>{e.message}</div>
                     })
                 })
         }
@@ -141,16 +142,16 @@ export default class TirePressureData extends React.Component {
         if (this.state.onData.hasData) {
             result = (
                 <div id="tirePressureData">
-                    <div className={style.tirePressureLoad}>Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
+                    <div className={styles.tirePressureLoad}>Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
                     {this.state.onData.optimumTirePressure}
-                    <div className={style.tirePressureTable}>
-                    <div className={style.tirePressureHeading}>
-                        <div className={style.tirePressureRow}>
-                            <div className={style.tirePressureHead}>Tire pressure (PSI)</div>
-                            <div className={style.tirePressureHead}>Tire Load Weight (pounds)</div>
+                    <div className={styles.tirePressureTable}>
+                    <div className={styles.tirePressureHeading}>
+                        <div className={styles.tirePressureRow}>
+                            <div className={styles.tirePressureHead}>Tire pressure (PSI)</div>
+                            <div className={styles.tirePressureHead}>Tire Load Weight (pounds)</div>
                         </div>
                     </div>
-                    <div className={style.tirePressureBody}>
+                    <div className={styles.tirePressureBody}>
                         {this.state.onData.pressureTable}
                     </div>
                     </div>
