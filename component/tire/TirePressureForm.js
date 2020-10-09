@@ -10,7 +10,7 @@ import {
 }  from 'react-bootstrap'
 import React from 'react'
 import TirePressureData from './TirePressureData'
-import './TirePressureForm.css'
+import style from './TirePressureForm.module.css'
 
 export default class TirePressureForm extends React.Component {
     constructor() {
@@ -130,7 +130,7 @@ export default class TirePressureForm extends React.Component {
                 </Row>
                 <Row className="no-gutters">
                     <Col md={8}>
-                        <div id="tirePressureOptionalData">Optional Details</div>
+                        <div sytle={style.tirePressureOptionalData}>Optional Details</div>
                     </Col>
                 </Row>
                 <Row className="no-gutters">

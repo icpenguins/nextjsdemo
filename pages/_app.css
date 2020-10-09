@@ -26,3 +26,9 @@ body {
     width: 100.5%;
     overflow-x: hidden;
 }
+
+.container-fluid {
+    background-color: lightskyblue;
+    color: black;
+    font-size: 1.5em;
+}

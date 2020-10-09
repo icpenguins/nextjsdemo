@@ -2,7 +2,7 @@
 
 import React from 'react'
 import fetch from 'isomorphic-unfetch'
-import './TirePressureData.css'
+import styles from './TirePressureData.module.css'
 
 export default class TirePressureData extends React.Component {
     constructor(props) {
@@ -28,9 +28,9 @@ export default class TirePressureData extends React.Component {
 
         if (otp) {
             otpData = (
-                <div className="optimumTirePressure">
-                    <div>Optimal Front Tire Pressure <span className="optimumTirePressureFront">{otp.frontTirePsi} (PSI)</span></div>
-                    <div>Optimal RearTire Pressure <span className="optimumTirePressureRear">{otp.rearTirePsi} (PSI)</span></div>
+                <div className={styles.optimumTirePressure}>
+                    <div>Optimal Front Tire Pressure <span className={styles.optimumTirePressureFront}>{otp.frontTirePsi} (PSI)</span></div>
+                    <div>Optimal RearTire Pressure <span className={style.optimumTirePressureRear}>{otp.rearTirePsi} (PSI)</span></div>
                 </div>
             )
         }
@@ -44,8 +44,8 @@ export default class TirePressureData extends React.Component {
 
             return (
                 <div className={c} key={item.psi}>
-                    <div className="tirePressureCell">{item.psi}</div>
-                    <div className="tirePressureCell">{item.load}</div>
+                    <div className={styles.tirePressureCell}>{item.psi}</div>
+                    <div className={styles.tirePressureCell}>{item.load}</div>
                 </div>
             )})
 
@@ -65,10 +65,10 @@ export default class TirePressureData extends React.Component {
 
         let err = parsed.errors.map((e, i) => {
             return (
-                <div className="tirePressureRow" key={i}>
-                    <div className="tirePressureCell">{e.status}</div>
-                    <div className="tirePressureCell">{e.title}</div>
-                    <div className="tirePressureCell">{e.detail}</div>
+                <div className={style.tirePressureRow} key={i}>
+                    <div className={style.tirePressureCell}>{e.status}</div>
+                    <div className={style.tirePressureCell}>{e.title}</div>
+                    <div className={style.tirePressureCell}>{e.detail}</div>
                 </div>
             )
         })
@@ -141,16 +141,16 @@ export default class TirePressureData extends React.Component {
         if (this.state.onData.hasData) {
             result = (
                 <div id="tirePressureData">
-                    <div className="tirePressureLoad">Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
+                    <div className={style.tirePressureLoad}>Load weight (lbs) per one PSI: {this.state.onData.loadToPsi}</div>
                     {this.state.onData.optimumTirePressure}
-                    <div className="tirePressureTable">
-                    <div className="tirePressureHeading">
-                        <div className="tirePressureRow">
-                            <div className="tirePressureHead">Tire pressure (PSI)</div>
-                            <div className="tirePressureHead">Tire Load Weight (pounds)</div>
+                    <div className={style.tirePressureTable}>
+                    <div className={style.tirePressureHeading}>
+                        <div className={style.tirePressureRow}>
+                            <div className={style.tirePressureHead}>Tire pressure (PSI)</div>
+                            <div className={style.tirePressureHead}>Tire Load Weight (pounds)</div>
                         </div>
                     </div>
-                    <div className="tirePressureBody">
+                    <div className={style.tirePressureBody}>
                         {this.state.onData.pressureTable}
                     </div>
                     </div>
