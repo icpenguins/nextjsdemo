@@ -8,15 +8,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './_app.css'
 
 export default class NextjsDemo extends App {
-  static async getInitialProps ({ Component, ctx }) {
-    let pageProps = {}
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx)
-    }
-
-    return { pageProps }
-  }
 
   render () {
     const { Component, pageProps } = this.props
