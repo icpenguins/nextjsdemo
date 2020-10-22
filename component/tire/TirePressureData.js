@@ -128,7 +128,7 @@ export default class TirePressureData extends React.Component {
 
                     // Send the error
                     this.setState({
-                        onError: <div class={styles.tirePressureError}>{e.message}</div>
+                        onError: <div className={styles.tirePressureError}>{e.message}</div>
                     })
                 })
         }
